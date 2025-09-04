@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Get the directory where the script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Check if branch name is provided
+BRANCH_NAME="${1:-master}"
+
+# Check if we're in a git repository
+if [ ! -d ".git" ]; then
+    echo "Error: Not in a git repository"
+    exit 1
+fi
+
+# Get current branch
+CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+# Update master branch safely
+echo "Updating master branch..."
+if [ "$CURRENT_BRANCH" = "master" ]; then
+    git pull origin master || exit 1
+else
+    git fetch origin master || exit 1
+fi
+
+# If a specific branch is provided, fetch it
+if [ "$BRANCH_NAME" != "master" ]; then
+    echo "Fetching branch $BRANCH_NAME..."
+    git fetch origin "$BRANCH_NAME" || exit 1
+    git checkout "$BRANCH_NAME" || exit 1
+fi
+
+# Run the reviewer
+echo "Running code review..."
+"$HOME/bin/code-reviewer/reviewer.rb" 

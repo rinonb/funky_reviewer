@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Code Reviewer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { padding: 20px; }
+    .container { max-width: 800px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-4">Code Reviewer</h1>
+    
+    <% if @error %>
+      <div class="alert alert-danger">
+        <%= @error %>
+      </div>
+    <% end %>
+
+    <form action="/review" method="post" class="card p-4">
+      <div class="mb-3">
+        <label for="repo_path" class="form-label">Repository Path</label>
+        <input type="text" class="form-control" id="repo_path" name="repo_path" required
+               placeholder="/full/path/to/your/repo">
+      </div>
+
+      <div class="mb-3">
+        <label for="branch" class="form-label">Branch Name</label>
+        <input type="text" class="form-control" id="branch" name="branch" required
+               placeholder="feature/new-feature">
+      </div>
+
+      <div class="mb-3">
+        <label for="target_branch" class="form-label">Target Branch</label>
+        <input type="text" class="form-control" id="target_branch" name="target_branch"
+               placeholder="master" value="master">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Review Changes</button>
+    </form>
+  </div>
+</body>
+</html> 
