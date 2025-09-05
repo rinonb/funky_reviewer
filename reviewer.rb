@@ -5,17 +5,9 @@ puts "Ruby version: #{RUBY_VERSION}"
 puts "Gem paths:"
 Gem.paths.path.each { |path| puts "  #{path}" }
 
-require 'openai'
-require 'git'
-require 'dotenv'
-require 'json'
-
-Dotenv.load
-
 class CodeReviewer
-  def initialize
-    access_token = ENV.fetch('OPENAI_API_KEY') { raise 'OPENAI_API_KEY environment variable is not set' }
-    @client = OpenAI::Client.new(access_token:)
+  def self.review_changes(branch, target_branch = 'master')
+    new.review_changes(branch, target_branch)
   end
 
   def review_changes(branch, target_branch = 'master')
@@ -72,21 +64,7 @@ class CodeReviewer
     PROMPT
 
     puts "Reviewing file: #{file}"
-    response = @client.chat(
-      parameters: {
-        model: 'gpt-4-turbo-preview',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a thorough code reviewer. Provide comprehensive feedback that helps improve code quality, maintainability, and reliability. Be specific and actionable in your suggestions.'
-          },
-          { role: 'user', content: prompt }
-        ],
-        temperature: 0.5
-      }
-    )
-
-    response.dig('choices', 0, 'message', 'content')
+    AiService.call(prompt: prompt)
   end
 
   def reviewer_prompt
@@ -102,7 +80,6 @@ class CodeReviewer
 end
 
 if __FILE__ == $PROGRAM_NAME
-  reviewer = CodeReviewer.new
-  results = reviewer.review_changes('branch_name')
+  results = CodeReviewer.review_changes('branch_name')
   puts results
 end
