@@ -13,7 +13,7 @@ And start copy pasting review comments like they're your own (so vibe reviewing 
 
 `bundle exec rackup`
 
-Go to http://localhost:9292
+Go to http://localhost:4567
 
 #### Roadmap
 - Feed more context to the review like the PR description, more of the codebase etc.

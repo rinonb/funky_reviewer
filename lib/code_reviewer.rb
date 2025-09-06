@@ -1,10 +1,5 @@
 #!/usr/bin/env ruby
 
-# Debug information
-puts "Ruby version: #{RUBY_VERSION}"
-puts "Gem paths:"
-Gem.paths.path.each { |path| puts "  #{path}" }
-
 class CodeReviewer
   def self.review_changes(branch, target_branch = 'master')
     new.review_changes(branch, target_branch)

@@ -1,17 +1,4 @@
-require 'sinatra'
-require 'sinatra/reloader'
-require 'bootstrap'
-require 'redcarpet'
-require 'dotenv'
-require 'openai'
-require 'git'
-require 'json'
-require_relative 'lib/services/ai_service'
-require_relative 'lib/prompts'
-require_relative 'reviewer'
 require 'debug'
-
-Dotenv.load
 
 class CodeReviewApp < Sinatra::Base
   configure :development do

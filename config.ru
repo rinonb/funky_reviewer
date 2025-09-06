@@ -1,2 +1,2 @@
-require './app'
-run CodeReviewApp
+require_relative 'lib/boot'
+CodeReviewApp.run!
