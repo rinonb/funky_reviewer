@@ -15,6 +15,8 @@ And start copy pasting review comments like they're your own (so vibe reviewing 
 
 Go to http://localhost:4567
 
+**[Rails world keynote presentation](https://youtu.be/XeZnccKXReY)**
+
 #### Roadmap
 - Feed more context to the review like the PR description, more of the codebase etc.
 - Make it a gem that works in Rails out of the box
